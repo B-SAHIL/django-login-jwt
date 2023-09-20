@@ -1,0 +1,16 @@
+# Ignore compiled Python files
+*.pyc
+
+# Ignore virtual environment folders
+env/
+
+# Ignore log files
+*.log
+
+# Ignore database files
+db.sqlite3
+
+# Ignore user-specific VS Code settings
+.vscode/
+
+
