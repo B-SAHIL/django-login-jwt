@@ -13,42 +13,57 @@ from rest_framework.response import Response
 from rest_framework import status
 
 
-
-def check_duplicates(email, phone):
-    if email is None or email == '':
-        return Response (f"Please specify email")
-    if email is not None:
-        User.objects.filter(email=email).exists()
-        return Response (f"wtih email = '{email}' this email user aleary exist")
-    if phone is not None:
-        User.objects.filter(phone=phone).exists()
-        return Response (f"wtih phone = '{phone}' this phone user aleary exist")
-    else:
-         return True
-
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
 class RegisterViewset(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.UpdateModelMixin):
     permission_classes = [AllowAny]
     serializer_class = RegistrationSerializer
     queryset = User.objects.none()
 
     def create(self, request, *args, **kwargs):
-        data = self.request.data
-        email_from_data = data.get('email')
-        phone = data.get('phone')
-        check_duplicates(email=email_from_data, phone=phone)
-        serizalizer = RegistrationSerializer(data=data)
-        if serizalizer.is_valid():
-            serizalizer.save()
-            return Response(serizalizer.data)
+        if not request.data:
+            return Response(
+                "No data was given for registration", status=status.HTTP_400_BAD_REQUEST
+            )
+        if request.data:
+            if request.data.get('phone'):
+                if len(request.data.get('phone')) > 10 or len(request.data.get('phone')) < 10:
+                    return Response(
+                        "Please enter valid Phone number",
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+            if request.data.get('first_name') is None or request.data.get('last_name') is None:
+                print(request.data.get('first_name'), request.data.get('last_name'))
+                return Response(
+                    "Both first_name and last_name are required",
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            if not request.data.get('email'):
+                return Response(
+                    "Email is required for user creation",
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            if request.data.get('email'):
+                try:
+                    user_with_email = User.objects.get(email=request.data.get('email'))
+                    if user_with_email:
+                        return Response(
+                            "A user with this email already exists.",
+                            status=status.HTTP_400_BAD_REQUEST
+                        )
+                except ObjectDoesNotExist:
+                    pass
+        data = request.data
+        serializer = RegistrationSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                serializer.data,
+                status=status.HTTP_201_CREATED
+            )
         else:
-            return Response(serizalizer.errors)
+            return Response(
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
         
         
