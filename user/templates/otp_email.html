@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 100%;
+            padding: 20px;
+        }
+        .header {
+            border-bottom: 1px solid #eee;
+        }
+        .header a {
+            text-decoration: none;
+        }
+        .header a.logo {
+            font-size: 1.4em;
+            color: #00466a;
+            font-weight: 600;
+        }
+        .header a.social {
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .content {
+            font-size: 1.1em;
+        }
+        .otp {
+            background: #00466a;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .signature {
+            font-size: 0.9em;
+        }
+        .footer {
+            border-top: 1px solid #eee;
+            text-align: right;
+        }
+        .footer p {
+            color: #aaa;
+            font-size: 0.8em;
+            font-weight: 300;
+            margin: 0;
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+                padding: 10px;
+            }
+            .header a.logo {
+                font-size: 1.2em;
+            }
+            .header a.social {
+                margin-right: 5px;
+            }
+            .otp {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a class="logo" href="#" style="font-size: 1.4em; color: #00466a; text-decoration: none; font-weight: 600">Django app</a>
+            <a class="social" href="https://www.instagram.com/_bunny024_">Instagram</a>
+            <a class="social" href="https://twitter.com/024_bunny">Twitter</a>
+            <a class="social" href="https://github.com/B-SAHIL">GitHub</a>
+        </div>
+        <div class="content">
+            <p>Hi,</p>
+            <p>Thank you for choosing Django. Use the following OTP to complete your Sign Up procedures.</p>
+            <div class="otp">{{otp}}</div>
+            <p class="signature">Regards,<br />Django app</p>
+        </div>
+        <div class="footer">
+            <p>Django App</p>
+            <p>1600 Parkway</p>
+            <p>India</p>
+        </div>
+    </div>
+</body>
+</html>

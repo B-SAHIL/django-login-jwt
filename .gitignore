@@ -10,7 +10,14 @@ env/
 # Ignore database files
 db.sqlite3
 
-# Ignore user-specific VS Code settings
-.vscode/
+# Ignore user-specific PyCharm settings
+.idea/
 
+# Ignore user-specific PyCharm workspace settings
+*.iml
 
+# Ignore the .pycharm_helpers directory (specific to the PyCharm IDE)
+.pycharm_helpers/
+
+# Ignore the .pytest_cache directory (used by PyCharm for test discovery)
+.pytest_cache/

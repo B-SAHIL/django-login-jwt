@@ -26,3 +26,9 @@ class User(AbstractUser):
         # Ensure that the username is set to the same value as the email
         self.username = self.email
         super().save(*args, **kwargs)
+
+
+class Otp(models.Model):
+    otp = models.CharField(max_length=10, null=True)
+    to = models.OneToOneField(to=User, on_delete=models.CASCADE)
+    request_time = models.DateTimeField()
